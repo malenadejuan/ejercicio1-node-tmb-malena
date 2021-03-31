@@ -27,7 +27,7 @@ inquirer.prompt(preguntas).then(respuestas => {
         } else {
           colorTexto = "#" + lineaElegida.properties.COLOR_LINIA;
         }
-        console.log(chalk.hex(colorTexto)(`Línea ${lineaElegida.properties.NOM_LINIA}.`))
+        console.log(chalk.hex(colorTexto)(`Línea ${lineaElegida.properties.NOM_LINIA}. ${lineaElegida.properties.DESC_LINIA}`))
       } else {
         console.log(texto);
         process.exit(0);
