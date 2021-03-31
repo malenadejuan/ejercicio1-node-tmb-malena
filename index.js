@@ -15,20 +15,23 @@ inquirer.prompt(preguntas).then(respuestas => {
   } else {
     if (respuestas.errores === true) {
       texto = chalk.red.bold("La línea no existe");
+    } else {
+      process.exit(0);
     }
     if (respuestas.linea) {
       const lineaElegida = lineasMetro.features.find(linia => linia.properties.NOM_LINIA === respuestas.linea);
       if (lineaElegida) {
+        let colorTexto;
         if (color) {
-          console.log(chalk.hex(color)(`Línea ${respuestas.linea}.`))
+          colorTexto = color;
         } else {
-          let colorLinea = "#" + lineaElegida.properties.COLOR_LINIA;
-          console.log(chalk.hex(colorLinea)(lineaElegida.properties.NOM_LINIA));
+          colorTexto = "#" + lineaElegida.properties.COLOR_LINIA;
         }
+        console.log(chalk.hex(colorTexto)(`Línea ${lineaElegida.properties.NOM_LINIA}.`))
+      } else {
+        console.log(texto);
+        process.exit(0);
       }
-    } else {
-      console.log(texto);
-      process.exit(0);
     }
   }
 });
