@@ -4,9 +4,7 @@ const chalk = require("chalk");
 require("dotenv").config();
 const { program } = require("commander");
 const preguntas = require("./preguntas");
-let linea;
-const urlParadas = "https://api.tmb.cat/v1/transit/linies/metro/101/estacions/?app_id=23f83909&app_key=09c9602ce5c6bb10b89b5c5c6f6849da";
-const paradas = require("./paradas.json");
+let url;
 
 inquirer.prompt(preguntas).then(respuestas => {
   if (respuestas.transporte === "Bus") {
@@ -14,14 +12,15 @@ inquirer.prompt(preguntas).then(respuestas => {
     process.exit(0);
   } else {
     if (respuestas.linea) {
-      fetch(`${process.env.API_URL_LINEA}/?app_id=${process.env.API_ID}&app_key=${process.env.API_KEY}`)
+      url = `${process.env.API_URL_LINEA}/?app_id=${process.env.API_ID}&app_key=${process.env.API_KEY}`;
+      fetch(url)
         .then(resp => resp.json())
         .then(datos => {
           const lineaElegida = datos.features.find(linia => linia.properties.NOM_LINIA === respuestas.linea);
           if (lineaElegida) {
             let texto = "";
             let colorTexto;
-            let url = `${process.env.API_URL_PARADAS_1}/${lineaElegida.properties.CODI_LINIA}/${process.env.API_URL_PARADAS_2}/?app_id=${process.env.API_ID}&app_key=${process.env.API_KEY}`;
+            url = `${process.env.API_URL_PARADAS_1}/${lineaElegida.properties.CODI_LINIA}/${process.env.API_URL_PARADAS_2}/?app_id=${process.env.API_ID}&app_key=${process.env.API_KEY}`;
             fetch(url)
               .then(resp => resp.json())
               .then(datos => {
