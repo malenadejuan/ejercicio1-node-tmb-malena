@@ -2,51 +2,9 @@ const inquirer = require("inquirer");
 const fetch = require("node-fetch");
 const chalk = require("chalk");
 const { program } = require("commander");
+const preguntas = require("./preguntas");
 
-inquirer.prompt([
-  {
-    type: "list",
-    message: "¿Qué tipo de transporte quiere consultar?",
-    name: "transporte",
-    default: 0,
-    choices: [
-      {
-        name: "metro",
-        value: "Metro"
-      },
-      {
-        name: "bus",
-        value: "Bus"
-      }
-    ]
-  },
-  {
-    type: "checkbox",
-    message: "¿Qué información extra quiere obtener de cada parada?",
-    name: "informacion",
-    choices: [
-      {
-        name: "coordenadas",
-        value: "Coordenadas"
-      },
-      {
-        name: "fecha-inauguracion",
-        value: "Fecha de inauguración"
-      }
-    ],
-    when: respuestas => respuestas.transporte === "Metro"
-  },
-  {
-    type: "confirm",
-    message: "¿Quiere que le informemos de los errores?",
-    name: "errores"
-  },
-  {
-    type: "input",
-    message: " ¿Qué línea quiere consultar?",
-    name: "linea"
-  }
-]).then(respuestas => {
+inquirer.prompt(preguntas).then(respuestas => {
   if (respuestas.transporte === "Bus") {
     console.log(chalk.yellow("No hay información disponible sobre autobuses."));
     process.exit(0);
