@@ -9,4 +9,13 @@ inquirer.prompt(preguntas).then(respuestas => {
     console.log(chalk.yellow("No hay información disponible sobre autobuses."));
     process.exit(0);
   }
-});
+})
+
+program
+  .option("-c, --color <color>", "Para introducir un color en hexadecimal")
+  .option("-a, --abrev", "¿Quieres abreviature?", false);
+
+program.parse(process.argv);
+
+const options = program.opts();
+const { color, abrev } = options;
