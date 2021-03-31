@@ -6,7 +6,7 @@ const preguntas = require("./preguntas");
 let linea;
 let texto;
 const url = "https://api.tmb.cat/v1/transit/linies/metro/?app_id=23f83909&app_key=09c9602ce5c6bb10b89b5c5c6f6849da";
-const urlParadas = "https://api.tmb.cat/v1/transit/linies/metro/101/estacions/?app_id=23f83909&app_key=09c9602ce5c6bb10b89b5c5c6f6849da"
+const urlParadas = "https://api.tmb.cat/v1/transit/linies/metro/101/estacions/?app_id=23f83909&app_key=09c9602ce5c6bb10b89b5c5c6f6849da";
 const lineasMetro = require("./lineasMetro.json");
 const paradas = require("./paradas.json");
 
@@ -29,8 +29,13 @@ inquirer.prompt(preguntas).then(respuestas => {
         } else {
           colorTexto = "#" + lineaElegida.properties.COLOR_LINIA;
         }
-        console.log(chalk.hex(colorTexto)(`Línea ${lineaElegida.properties.NOM_LINIA}. ${lineaElegida.properties.DESC_LINIA}`))
+        console.log(chalk.hex(colorTexto)(`Línea ${lineaElegida.properties.NOM_LINIA}. ${lineaElegida.properties.DESC_LINIA}`));
         /* Pedir todas las paradas de la linea */
+        if (abrev) {
+          console.log(chalk.hex(colorTexto)(paradas.features.map(parada => " " + parada.properties.NOM_ESTACIO.slice(0, 3) + ".")));
+        } else {
+          console.log(chalk.hex(colorTexto)(paradas.features.map(parada => " " + parada.properties.NOM_ESTACIO)));
+        }
       } else {
         console.log(texto);
         process.exit(0);
