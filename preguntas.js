@@ -3,15 +3,14 @@ const preguntas = [
     type: "list",
     message: "¿Qué tipo de transporte quiere consultar?",
     name: "transporte",
-    default: 0,
     choices: [
       {
-        name: "metro",
-        value: "Metro"
+        name: "Metro",
+        value: "metro"
       },
       {
-        name: "bus",
-        value: "Bus"
+        name: "Bus",
+        value: "bus"
       }
     ],
   },
@@ -21,27 +20,27 @@ const preguntas = [
     name: "informacion",
     choices: [
       {
-        name: "coordenadas",
+        name: "Coordenadas",
         value: "Coordenadas"
       },
       {
-        name: "fecha-inauguracion",
-        value: "Fecha de inauguración"
+        name: "Fecha de inauguración",
+        value: "fecha-inauguracion"
       }
     ],
-    when: respuestas => respuestas.transporte === "Metro"
+    when: respuestas => respuestas.transporte === "metro"
   },
   {
     type: "confirm",
     message: "¿Quiere que le informemos de los errores?",
     name: "errores",
-    when: respuestas => respuestas.transporte === "Metro"
+    when: respuestas => respuestas.transporte === "metro"
   },
   {
     type: "input",
     message: " ¿Qué línea quiere consultar?",
     name: "linea",
-    when: respuestas => respuestas.transporte === "Metro"
+    when: respuestas => respuestas.transporte === "metro"
   }
 ];
 

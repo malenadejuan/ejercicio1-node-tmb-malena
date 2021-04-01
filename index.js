@@ -7,7 +7,7 @@ const preguntas = require("./preguntas");
 let url;
 
 inquirer.prompt(preguntas).then(respuestas => {
-  if (respuestas.transporte === "Bus") {
+  if (respuestas.transporte === "bus") {
     console.log(chalk.yellow("No hay información disponible sobre autobuses."));
     process.exit(0);
   } else {
@@ -33,10 +33,10 @@ inquirer.prompt(preguntas).then(respuestas => {
                 ));
                 informacionLinea.forEach(parada => {
                   texto = texto + " " + JSON.stringify(parada.nombre);
-                  if (respuestas.informacion.includes("Coordenadas")) {
+                  if (respuestas.informacion.includes("coordenadas")) {
                     texto = texto + " " + JSON.stringify(parada.coordenadas);
                   }
-                  if (respuestas.informacion.includes("Fecha de inauguración")) {
+                  if (respuestas.informacion.includes("fecha-inauguracion")) {
                     texto = texto + " " + JSON.stringify(parada.fecha);
                   }
                 });
